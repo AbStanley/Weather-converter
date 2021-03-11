@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Temperature Converter</title>
+    <style media="screen">
+      #message {
+        color: red;
+      }
+    </style>
+    <script>
+
+      //  WAIT UNTIL DOM HAS COMPLETELY LOADED
+      window.addEventListener("DOMContentLoaded", domLoaded);
+
+      // Function to clean Fahrenheit input if typing in Celsius
+      function keydownC(e) {
+        console.log(e);
+        // select Input, then assign empty string
+        document.querySelector("#Fahrenheit").value = "";
+      }
+
+      // Function to clean Celsius input if typing in Fahrenheit
+      function keydownF(e) {
+        console.log(e);
+        // select Input, then assign empty string
+        document.querySelector("#Celsius").value = "";
+      }
+
+      function domLoaded() {
+        // STEP 1 = SELECT THE NAME INPUT AND ADD A 'KEYDOWN" EVEN HANDLER'
+        // INSER THAT CODE
+        document.querySelector("#Celsius").addEventListener("keydown", keydownC);
+        document.querySelector("#Fahrenheit").addEventListener("keydown", keydownF);
+
+        var button = document.querySelector("#Convert");
+
+
+        // Select the buttonBtn by pressing Enter
+        document.getElementById("Celsius")
+        .addEventListener("keyup", function(event) {
+          event.preventDefault();
+          if (event.keyCode === 13) {
+            document.getElementById("Convert").click();
+            }
+        });
+
+        document.getElementById("Fahrenheit")
+        .addEventListener("keyup", function(event) {
+          event.preventDefault();
+          if (event.keyCode === 13) {
+            document.getElementById("Convert").click();
+            }
+        });
+        // add a click even handler
+        button.addEventListener("click", Converting);
+
+        //Select the password input & Add an input Event handler calledd PasswordChanged
+}
+  function Converting() {
+    if (document.getElementById("Fahrenheit").value == "" && document.getElementById("Celsius").value == "") {
+      document.getElementById("message").innerHTML = "Please Insert a value in any box";
+    }
+
+    // select the text input
+    var valNum;
+    var img = document.querySelector("img");
+    if (document.getElementById("Fahrenheit").value != "") {
+
+    //  document.getElementById("Convert").value = "Fahrenheit";
+      document.getElementById("message").innerHTML = "";
+
+        valNum = document.querySelector("#Fahrenheit").value;
+        var Celsius = (valNum-32) / 1.8;
+        document.getElementById("Celsius").value = Celsius;
+
+        if (Celsius < 0){
+
+          img.src = "cold.gif";
+        }
+        else if (Celsius >= 0 && Celsius<= 10) {
+          img.src = "cool.gif";
+        }
+        else if (Celsius>= 10) {
+          img.src = "warm.gif";
+        }
+
+    }
+    else if (document.getElementById("Celsius").value != ""){
+
+//      document.getElementById("Convert").value = "Celsius";
+      document.getElementById("message").innerHTML = "";
+
+      valNum = document.querySelector("#Celsius").value;
+      var Fahrenheit = (valNum*9/5) + 32;
+      document.getElementById("Fahrenheit").value = Fahrenheit;
+          if (Fahrenheit < 32){
+            img.src = "cold.gif";
+          }
+          else if (Fahrenheit >= 32 && Fahrenheit<= 50) {
+            img.src = "cool.gif";
+          }
+          else if (Fahrenheit >= 50) {
+            img.src = "warm.gif";
+          }
+    }
+
+
+        // Swap warm.gif with cool gif
+
+      }
+    </script>
+
+  </head>
+
+
+  <body>
+    <p>Temperature</p>
+    <input type="number" placeholder="Celsius" id="Celsius">
+    <input type="number" placeholder="Fahrenheit" id="Fahrenheit">
+    <input type="button" value = "Convert" id="Convert">
+    <br>
+    <p id="message"></p>
+    <img src="warm.gif" alt="Sunny">
+
+
+  </body>
+</html>
